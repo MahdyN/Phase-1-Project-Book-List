@@ -10,9 +10,43 @@
 </head>
 <body>
    <header> <h1>Book List</h1> </header>   
-    <div id ="search-images">
-        
-
+    <form id="search-form">
+        <label for="book-title">Search by Book Title</label><br>
+        <input type="text" id="search-title">
+        <input type="submit" value="Search">
+    </form>
+   
+    <div id="selected-image">
+        <!-- Image of selected book will show here as well as the title and author -->
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/800px-Question_mark_%28black%29.svg.png" alt="Book Not Selected" />
+        <h2 class="book-name">Book Title</h2>
+        <h3 class="book-author">Author</h3>
     </div>
+
+    <div id="description-div">
+    <h2 id="description-header"><u>Description:</u></h2>
+    <p id="description-text">Book Description</p>
+    </div>
+
+    <div id ="search-images">
+        <!-- Images from user search will go here -->
+    </div>
+
+    <div id="search-div">
+        <h2><u>Search List:</u></h2>
+        <ul id="search-list">
+
+        </ul>
+    </div>
+
+    <div id="user-div">
+        <h2><u>Your Book List:</u></h2>
+        <ul id="user-list">
+            
+        </ul>
+    </div>
+
+
+
 </body>
 </html>

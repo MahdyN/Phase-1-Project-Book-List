@@ -23,7 +23,8 @@ header {
     color:black;
     background-color:beige;
     border: 5px solid #73AD21;
-    border-radius: 100px
+    border-radius: 100px;
+    margin-bottom: 9px;
   }
 
   #search-images {
@@ -43,6 +44,71 @@ header {
   #search-images img:last-child {
     margin-right: 0;
   }
+
+  #selected-image {
+    position: relative;
+    background-color: beige;
+    border: 5px solid #73AD21;
+    margin:auto;
+    margin-bottom: 5px;
+  }
+
+  #selected-image img {
+    height: 350px; 
+  }
+
+  /* .book-name,
+  .book-author {
+    
+  } */
+
+  #description-div {
+    position: relative;
+    background-color: beige;
+    border: 4px solid #73AD21;
+    border-radius: 8%;
+    margin:auto;
+    display:table;
+  }
+  
+  #description-header {
+      position: relative;
+      margin:auto;
+      display: table
+  }
+
+  #description-text {
+    position: relative;
+    margin:auto;
+    display: table;
+    font-size: larger;
+    word-wrap: break-word;
+}
+
+#search-form {
+  background-color: beige;
+  margin: auto;
+  margin-bottom: 5px;
+  border: 4px solid #73AD21;
+}
+
+#search-div {
+  background-color: beige;
+  height: 250px;
+  width: 700px;
+  border: 4px solid #73AD21;
+  margin: auto;
+  margin-bottom: 5px;
+}
+
+#user-div {
+  background-color: beige;
+  height: 250px;
+  width: 700px;
+  border: 4px solid #73AD21;
+  margin: auto;
+}
+
 
 
 
