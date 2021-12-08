@@ -24,7 +24,9 @@ header {
     background-color:beige;
     border: 5px solid #73AD21;
     border-radius: 100px;
-    margin-bottom: 9px;
+    margin-bottom: 15px;
+    min-width: 400px;
+    margin: auto;
   }
 
   #search-images {
@@ -90,6 +92,7 @@ header {
   margin: auto;
   margin-bottom: 5px;
   border: 4px solid #73AD21;
+  margin-top: 5px;
 }
 
 #search-div {
@@ -131,6 +134,16 @@ header {
 
 .read {
   background-color: rgb(40, 201, 40);
+  color: white;
+}
+
+.more-info {
+  background-color: blue;
+  color: white;
+}
+
+.add-book {
+  background-color: #73AD21;
   color: white;
 }
 
