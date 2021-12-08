@@ -12,50 +12,47 @@ document.addEventListener("DOMContentLoaded", () => {
     const userBookTitle = document.querySelector('input#add-book') // the text value of this will be used to fill the inner text of the list item in the user book list
     const userBookList = document.querySelector('ul#user-list') // list items will be added here by the add book button in the search list and the manual user text input in the add book form, buttons need to be created on every list item and event listeners on each as they are being made
 
-    // // Array for Random Book Keywords:
-    // const keywordPool = [   'Lord Of The Rings', 
-    //                         'Harry Potter', 
-    //                         'Python', 
-    //                         'JavaScript', 
-    //                         'The Hobbit', 
-    //                         'Hunger Games', 
-    //                         'Tale',
-    //                         'Catcher',
-    //                         'Physics',
-    //                         'To Kill A Mockingbird',
-    //                         "Charlotte's",
-    //                         "Kite",
-    //                         "The Shack",
-    //                         "The Fault",
-    //                         "Dune",
-    //                         "Godfather",
-    //                         "Peter Rabbit",
-    //                         "Cosmos",
-    //                         "Animal Farm",
-    //                         "Goose",
-    //                         "Star",
-    //                         "James Bond",
-    //                         "Marine"
-    //                     ]
+    // Array for Random Book Keywords:
+    const keywordPool = [   'Lord Of The Rings', 
+                            'Harry Potter', 
+                            'Python', 
+                            'JavaScript', 
+                            'The Hobbit', 
+                            'Hunger Games', 
+                            'Tale',
+                            'Catcher',
+                            'Physics',
+                            'To Kill A Mockingbird',
+                            "Charlotte's",
+                            "Kite",
+                            "The Shack",
+                            "The Fault",
+                            "Dune",
+                            "Godfather",
+                            "Peter Rabbit",
+                            "Cosmos",
+                            "Animal Farm",
+                            "Goose",
+                            "Star",
+                            "James Bond",
+                            "Marine"
+                        ]
 
     // upon DOM content load want to fetch a random word from a random word generator api and use that as a keyword to fetch the results from the books api and populate the search list and the selected image div (could consolidate this with beginning of the search form event) 
         
-        fetch('https://random-word-api.herokuapp.com/word?number=1&swear=0')
-        .then((response) => response.json())
-        .then((randomKeyword) => {
+        const randomKeyword = keywordPool[Math.floor(Math.random() * keywordPool.length)]
         searchListHeader.innerText = `Randomly Generated List for '${randomKeyword}':`
         fetch(`https://www.googleapis.com/books/v1/volumes?q=${randomKeyword}`)
         .then((response) => response.json())
         .then((books) => {
-            // checking if certain elements are undefined in order not to break the code
-            const imageURL = typeof(books.items[0].volumeInfo.imageLinks) === 'undefined' ? 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/800px-Question_mark_%28black%29.svg.png' : `${books.items[0].volumeInfo.imageLinks.thumbnail}`
-            const bookAuthor = typeof(books.items[0].volumeInfo.authors) === 'undefined' ? 'Unknown Author' : `${books.items[0].volumeInfo.authors[0]}`
-            const bookDescription = typeof(books.items[0].volumeInfo.description) === 'undefined' ? 'No Description' : `${books.items[0].volumeInfo.description}`
+
+
+
             // changing book info to first book in the returned search list upon fetching random book list
-            selectedBookImage.setAttribute('src', `${imageURL}`)
+            selectedBookImage.setAttribute('src', `${books.items[0].volumeInfo.imageLinks.thumbnail}`)
             selectedBookTitle.innerText = books.items[0].volumeInfo.title
-            selectedBookAuthor.innerText = `${bookAuthor}`
-            selectedBookDescription.innerText = `${bookDescription}`
+            selectedBookAuthor.innerText = books.items[0].volumeInfo.authors[0]
+            selectedBookDescription.innerText = books.items[0].volumeInfo.description
             searchList.innerHTML= ''
 
             books.items.forEach((book) => {
@@ -73,15 +70,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 searchList.appendChild(searchListItem)
                 // adding event listeners to the buttons
                 moreInfoButton.addEventListener('click', () => {
-                    // Need to check as well if any elements are undefined in order not to break the code
-                    const buttonImageURL = typeof(book.volumeInfo.imageLinks) === 'undefined' ? 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/800px-Question_mark_%28black%29.svg.png' : `${book.volumeInfo.imageLinks.thumbnail}`
-                    const buttonBookAuthor = typeof(book.volumeInfo.authors) === 'undefined' ? 'Unknown Author' : `${book.volumeInfo.authors[0]}`
-                    const buttonBookDescription = typeof(book.volumeInfo.description) === 'undefined' ? 'No Description' : `${book.volumeInfo.description}`
-                    // changing book info on page based on what button is pressed
-                    selectedBookImage.setAttribute('src', `${buttonImageURL}`)
+                    selectedBookImage.setAttribute('src', `${book.volumeInfo.imageLinks.thumbnail}`)
                     selectedBookTitle.innerText = book.volumeInfo.title
-                    selectedBookAuthor.innerText = buttonBookAuthor
-                    selectedBookDescription.innerText = buttonBookDescription
+                    selectedBookAuthor.innerText = book.volumeInfo.authors[0]
+                    selectedBookDescription.innerText = book.volumeInfo.description
                 })
                 // Whenever a user adds a book to their list, two buttons must also be created, the remove book from list button and the status button (Not Read/Read)
                 addBookButton.addEventListener('click', () => {
@@ -113,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 })
             })
         })
-    })
+
 
     // Adding event listener on search form to start flow of data
     searchForm.addEventListener('submit', (e) => {
@@ -122,15 +114,11 @@ document.addEventListener("DOMContentLoaded", () => {
         fetch(`https://www.googleapis.com/books/v1/volumes?q=${userSearchTitle.value}`)
         .then((response) => response.json())
         .then((books) => {
-            // checking if certain elements are undefined in order not to break the code
-            const imageURL = typeof(books.items[0].volumeInfo.imageLinks) === 'undefined' ? 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/800px-Question_mark_%28black%29.svg.png' : `${books.items[0].volumeInfo.imageLinks.thumbnail}`
-            const bookAuthor = typeof(books.items[0].volumeInfo.authors) === 'undefined' ? 'Unknown Author' : `${books.items[0].volumeInfo.authors[0]}`
-            const bookDescription = typeof(books.items[0].volumeInfo.description) === 'undefined' ? 'No Description' : `${books.items[0].volumeInfo.description}`
             // changing book info to first book in the returned search list upon form submission
-            selectedBookImage.setAttribute('src', `${imageURL}`)
+            selectedBookImage.setAttribute('src', `${books.items[0].volumeInfo.imageLinks.thumbnail}`)
             selectedBookTitle.innerText = books.items[0].volumeInfo.title
-            selectedBookAuthor.innerText = `${bookAuthor}`
-            selectedBookDescription.innerText = `${bookDescription}`
+            selectedBookAuthor.innerText = books.items[0].volumeInfo.authors[0]
+            selectedBookDescription.innerText = books.items[0].volumeInfo.description
             searchList.innerHTML= ''
             // iterating over the returned book list and creating a list item as well as buttons and event listeners for the buttons
             books.items.forEach((book) => {
@@ -148,16 +136,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 searchList.appendChild(searchListItem)
                 // adding event listeners to the buttons
                 moreInfoButton.addEventListener('click', () => {
-                    // Need to check as well if any elements are undefined in order not to break the code
-                    const buttonImageURL = typeof(book.volumeInfo.imageLinks) === 'undefined' ? 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/800px-Question_mark_%28black%29.svg.png' : `${book.volumeInfo.imageLinks.thumbnail}`
-                    const buttonBookAuthor = typeof(book.volumeInfo.authors) === 'undefined' ? 'Unknown Author' : `${book.volumeInfo.authors[0]}`
-                    const buttonBookDescription = typeof(book.volumeInfo.description) === 'undefined' ? 'No Description' : `${book.volumeInfo.description}`
-                    // changing book info on page based on what button is pressed
-                    selectedBookImage.setAttribute('src', `${buttonImageURL}`)
+                    selectedBookImage.setAttribute('src', `${book.volumeInfo.imageLinks.thumbnail}`)
                     selectedBookTitle.innerText = book.volumeInfo.title
-                    selectedBookAuthor.innerText = buttonBookAuthor
-                    selectedBookDescription.innerText = buttonBookDescription
-
+                    selectedBookAuthor.innerText = book.volumeInfo.authors[0]
+                    selectedBookDescription.innerText = book.volumeInfo.description
                 })
                 // Whenever a user adds a book to their list, two buttons must also be created, the remove book from list button and the status button (Not Read/Read)
                 addBookButton.addEventListener('click', () => {
