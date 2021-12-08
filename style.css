@@ -66,9 +66,9 @@ header {
     position: relative;
     background-color: beige;
     border: 4px solid #73AD21;
-    border-radius: 8%;
     margin:auto;
     display:table;
+    width:550px
   }
   
   #description-header {
@@ -94,16 +94,24 @@ header {
 
 #search-div {
   background-color: beige;
-  height: 250px;
+  min-height: 350px;
   width: 700px;
   border: 4px solid #73AD21;
   margin: auto;
   margin-bottom: 5px;
 }
 
+#search-list {
+  list-style-type: none;
+}
+
+#user-list {
+  list-style-type: none;
+}
+
 #user-div {
   background-color: beige;
-  height: 250px;
+  min-height: 250px;
   width: 700px;
   border: 4px solid #73AD21;
   margin: auto;
@@ -114,6 +122,16 @@ header {
   margin: auto;
   margin-bottom: 5px;
   border: 4px solid #73AD21;
+}
+
+.not-read {
+  background-color: red;
+  color: white
+}
+
+.read {
+  background-color: rgb(40, 201, 40);
+  color: white;
 }
 
 
