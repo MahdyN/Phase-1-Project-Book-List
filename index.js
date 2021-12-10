@@ -48,27 +48,11 @@ document.addEventListener("DOMContentLoaded", () => {
         addBookButton.addEventListener('click', (event) => {
             const userListItems = document.querySelectorAll('ul#user-list li')
             const textArray = []
-
             userListItems.forEach((item) => {
                 textArray.push(item.childNodes[0].data)
             })
+            const duplicate = textArray.find(element => element===event.target.parentNode.childNodes[0].data)
 
-            if(userListItems[0] === undefined) {
-                const userListItem = document.createElement('li')
-                const removeBookButton =  document.createElement('button')
-                const statusButton = document.createElement('button')
-                removeBookButton.innerText = 'Remove Book'
-                statusButton.innerText = 'Not Read'
-                statusButton.classList = 'not-read'
-                userListItem.innerText = `${bookTitle} ` 
-                userListItem.appendChild(removeBookButton)
-                userListItem.appendChild(statusButton)
-                userBookList.appendChild(userListItem)
-                removeButtonListener(removeBookButton)
-                statusButtonListener(statusButton)
-            }
-            else{
-                const duplicate = textArray.find(element => element===event.target.parentNode.childNodes[0].data)
                 if(duplicate === event.target.parentNode.childNodes[0].data) {
                     alert('You are adding a book that already exists in your list, please try another')
                 }
@@ -86,7 +70,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         removeButtonListener(removeBookButton)
                         statusButtonListener(statusButton)
                 }
-            }
         })
     }
 
@@ -130,29 +113,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const textArray = []
         const userBook = userBookTitle.value
         userListItems.forEach((item) => {
-        textArray.push(item.childNodes[0].data)})
-        
-        if(userListItems[0] === undefined) {
-                const userListItem = document.createElement('li')
-                const removeBookButton =  document.createElement('button')
-                const statusButton = document.createElement('button')
-                removeBookButton.innerText = 'Remove Book'
-                statusButton.innerText = 'Not Read'
-                statusButton.classList = 'not-read'
-                userListItem.innerText = `${userBook} `
-                userListItem.appendChild(removeBookButton)
-                userListItem.appendChild(statusButton)
-                userBookList.appendChild(userListItem)
+            textArray.push(item.childNodes[0].data)})
+        const duplicate = textArray.find(element => element === `${userBook} `)
 
-                removeButtonListener(removeBookButton)
-                statusButtonListener(statusButton)
-        }
-        else{
-            const duplicate = textArray.find(element => element === `${userBook} `)
-            if(duplicate === `${userBook} `) {
+        if(duplicate === `${userBook} `) {
                 alert('You are adding a book that already exists in your list, please try another')
             }
-            else{
+        else{
                 const userListItem = document.createElement('li')
                 const removeBookButton =  document.createElement('button')
                 const statusButton = document.createElement('button')
@@ -167,7 +134,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 removeButtonListener(removeBookButton)
                 statusButtonListener(statusButton)
             }
-        }
     }
     
     // upon DOM content load want to fetch a random word from a random word generator api and use that as a keyword to fetch the results from the books api and populate the search list and the selected image div (could consolidate this with beginning of the search form event) 
