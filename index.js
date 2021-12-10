@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 removeBookButton.innerText = 'Remove Book'
                 statusButton.innerText = 'Not Read'
                 statusButton.classList = 'not-read'
-                userListItem.innerText = `${userBookTitle.value} `
+                userListItem.innerText = `${userBook} `
                 userListItem.appendChild(removeBookButton)
                 userListItem.appendChild(statusButton)
                 userBookList.appendChild(userListItem)
